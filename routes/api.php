@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 // 3.
 use App\Http\Controllers\studentController;
-Route::get("/students",  [studentController::class,'index']);
+
+Route::get("/students",  [studentController::class, 'index']);
 
 Route::get("/students/{id}", function () {
     return response()->json([
@@ -25,11 +26,17 @@ Route::get("/students/{id}", function () {
     ]);
 });
 
-Route::post("/students", function () {
-    return response()->json([
-        "message" => "POST / Student Create"
-    ]);
-});
+// 1. 
+// Route::post("/students", function () {
+//     return response()->json([
+//         "message" => "POST / Student Create"
+//     ]);
+// });
+
+// 2.
+Route::post("/students", [
+    studentController::class, 'store'
+]);
 
 Route::put("/students/{id}", function ($id) {
     return response()->json([
@@ -42,6 +49,3 @@ Route::delete("students/{id}", function ($id) {
         "message" => "DELETE / Student delete by Id"
     ]);
 });
-
-
-
