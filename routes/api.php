@@ -20,11 +20,9 @@ use App\Http\Controllers\studentController;
 
 Route::get("/students",  [studentController::class, 'index']);
 
-Route::get("/students/{id}", function () {
-    return response()->json([
-        "message" => "GET / Student by Id"
-    ]);
-});
+Route::get("/students/{id}", [
+    studentController::class, 'show'
+]);
 
 // 1. 
 // Route::post("/students", function () {
@@ -38,14 +36,23 @@ Route::post("/students", [
     studentController::class, 'store'
 ]);
 
-Route::put("/students/{id}", function ($id) {
-    return response()->json([
-        "message" => "PUT / Student Update by Id"
-    ]);
-});
+// 1.
+// Route::put("/students/{id}", function ($id) {
+//     return response()->json([
+//         "message" => "PUT / Student Update by Id"
+//     ]);
+// });
 
-Route::delete("students/{id}", function ($id) {
-    return response()->json([
-        "message" => "DELETE / Student delete by Id"
-    ]);
-});
+// 2.
+Route::put("/students/{id}", [
+    studentController::class, 'update'
+]);
+
+Route::patch("/students/{id}", [
+    studentController::class, 'updatePartial'
+]);
+
+
+Route::delete("students/{id}", [
+    studentController::class, 'destroy'
+]);
