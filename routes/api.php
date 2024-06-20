@@ -1,6 +1,8 @@
 <?php
 
 // use Illuminate\Http\Request;
+
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 // 1. 
@@ -55,4 +57,19 @@ Route::patch("/students/{id}", [
 
 Route::delete("students/{id}", [
     studentController::class, 'destroy'
+]);
+
+
+// Auth
+
+Route::post('/login', [
+    AuthController::class, 'login'
+]);
+
+Route::post("/register", [
+    AuthController::class, 'register'
+]);
+
+Route::post("/logout", [
+    AuthController::class, 'logout'
 ]);
