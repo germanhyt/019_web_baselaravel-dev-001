@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 class ExampleController extends Controller
 {
     //
+    public function __construct()
+    {
+        // Usa el middleware 'example' en todos los métodos de este controlador
+        // $this->middleware('example');
+    }
 
     public function index()
     {
