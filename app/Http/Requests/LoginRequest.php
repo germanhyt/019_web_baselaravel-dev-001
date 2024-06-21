@@ -24,11 +24,12 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => "required|email|unique:user,email",
-            'password' => [
-                "required",
-                Password::min(8)
-                    ->letters()
-            ]
+            'password' => "required"
+            // 'password' => [
+            //     "required",
+            //     Password::min(8)
+            //         ->letters()
+            // ]
         ];
     }
 }

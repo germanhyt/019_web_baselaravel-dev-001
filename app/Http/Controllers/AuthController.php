@@ -8,11 +8,35 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use function Laravel\Prompts\alert;
-
 class AuthController extends Controller
 {
     //
+    public function user(Request $request)
+    {
+        return $request->user();
+    }
+
+
+    public function register(RegisterRequest $request)
+    {
+
+        // $data = $request->validate();
+
+        $user = User::create(
+            [
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'password' => bcrypt($request->input('password'))
+            ]
+        );
+
+        $token = $user->createToken('main')->plainTextToken;
+
+        return response()->json([
+            'user' => $user,
+            'token' => $token
+        ], 201);
+    }
 
     public function login(LoginRequest $request)
     {
@@ -25,42 +49,12 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
-        $token = $user->creatToken('main')->plainTextToken;
-
-        return response()->json([
-            'user' => $user,
-            'token' => $token
-        ]);
-    }
-
-
-    public function register(RegisterRequest $request)
-    {
-        echo  $request;
-        alert("Hello World");
-
-        $data = $request->validate(
-            [
-                'name' => 'required|string',
-                'email' => 'required|email|unique:users',
-                'password' => 'required|string|min:6'
-            ]
-        );
-
-        $user = User::create(
-            [
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => bcrypt($data['password'])
-            ]
-        );
-
         $token = $user->createToken('main')->plainTextToken;
 
         return response()->json([
             'user' => $user,
             'token' => $token
-        ]);
+        ], 200);
     }
 
 

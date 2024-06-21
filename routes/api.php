@@ -23,9 +23,6 @@ use App\Http\Controllers\studentController;
 use Illuminate\Http\Request;
 
 // MIDLEWARE
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 Route::middleware('example')->get('/', [
     ExampleController::class, 'index'
 ]);
@@ -103,3 +100,7 @@ Route::post("/register", [
 Route::post("/logout", [
     AuthController::class, 'logout'
 ]);
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
